@@ -4,6 +4,6 @@ const answerRouter = express.Router()
 
 
 answerRouter.post("/post-answer/:questionid", postAnswer);
-answerRouter.get("/get-answer", getAnswer);
+answerRouter.get("/get-answer/:questionid", getAnswer);
 
 module.exports= answerRouter
