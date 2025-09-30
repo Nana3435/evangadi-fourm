@@ -70,7 +70,7 @@ const getAllQuestions = async (req, res) => {
             JOIN users u ON q.userid = u.userid
             ORDER BY q.id DESC
         `;
-        
+        //destructure the result to get only the rows
         const [questions] = await db.execute(query);
 
         // Check if questions exist
@@ -99,9 +99,63 @@ const getAllQuestions = async (req, res) => {
     }
 }
 
-const getSingleQuestion = (req, res) => {
-  res.json({ singleQuestion: "single question" });
-};
+const getSingleQuestion = async (req, res) => {
+    try {
+        // Extract questionid from request parameters
+        const { questionid } = req.params;
+
+        // Validate questionid parameter
+        if (!questionid) {
+            return res.status(400).json({
+                error: true,
+                message: "Question ID is required"
+            });
+        }
+
+        // SQL query to get single question with user information
+        const query = `
+            SELECT 
+                q.questionid,
+                q.title,
+                q.description,
+                q.tag,
+                q.id,
+                u.userid,
+                u.username,
+                u.firstname,
+                u.lastname
+            FROM questions q
+            JOIN users u ON q.userid = u.userid
+            WHERE q.questionid = ?
+        `;
+        
+        const [questions] = await db.execute(query, [questionid]);
+
+        // Check if question exists
+        if (questions.length === 0) {
+            return res.status(404).json({
+                error: true,
+                message: "Question not found",
+                data: null
+            });
+        }
+
+        // Return the single question
+        res.status(200).json({
+            error: false,
+            message: "Question retrieved successfully",
+            data: questions[0] // Return the first (and only) result
+        });
+
+    } catch (error) {
+        console.error('Error fetching single question:', error);
+        res.status(500).json({
+            error: true,
+            message: "Internal server error",
+            details: error.message
+        });
+    }
+}
 
 
 
