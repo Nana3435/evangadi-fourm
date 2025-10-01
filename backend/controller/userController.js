@@ -110,8 +110,9 @@ const login = async (req, res) => {
 };
 // check
 const check = (req, res) => {
-  console.log("Check route hit");
-  return res.json({ message: "Check route working" });
+  const {username,userid} = req.user;
+
+  res.json({ username,userid});
 };
 
 module.exports = { register, login, check };
