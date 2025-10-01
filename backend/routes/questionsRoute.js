@@ -8,7 +8,7 @@ const {
 
 questionRouter.post("/post-question", postQuestion);
 questionRouter.get("/all-questions", getAllQuestions);
-questionRouter.get("/single-question", getSingleQuestion);
+questionRouter.get("/single-question/:questionid", getSingleQuestion);
 
 
 

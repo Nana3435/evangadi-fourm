@@ -4,16 +4,16 @@ const jwt = require("jsonwebtoken");
 const authMiddlewares = async (req, res, next) => {
   const authHeader = req.headers.authorization;
 
-  if (!authHeader) {
+  if (!authHeader || !authHeader.startsWith("Bearer")) {
     return res.status(StatusCodes.UNAUTHORIZED).json({ error: "Unauthorized" });
   }
 
-  const token = authHeader
+  const token = authHeader.split(" ")[1];
   // console.log(authHeader);
   // console.log(token);
 
   try {
-    const { username, userid } = jwt.verify(token, "secret");
+    const { username, userid } = jwt.verify(token, process.env.JWT_SECRET);
 
     req.user = { username, userid };
 
