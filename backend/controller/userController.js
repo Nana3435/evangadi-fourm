@@ -1,26 +1,17 @@
-const db=require('../db/dbConfig')
+const db = require("../db/dbConfig");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const { StatusCodes } = require("http-status-codes");
 
 
-
-const register= async (req,res)=>{
-  const {	username,	firstname,	lastname,	email,	password	
-}=req.body
-if (!username || !firstname || !lastname || !email || !password) {
-  res.status(400).json({ error: "All fields are required" });
-}
-try {
-  
-} catch (error) {
-  res.status(500).json({ error: "Server error" });
-}
-}
-
-const login = (req, res) => {
-  res.json({ register: "register" });
-};
 
 const check = (req, res) => {
-  res.json({ register: "register" });
+
+  const username = req.user.username;
+  const userid = req.user.userid;
+
+
+  return res.status(StatusCodes.OK).json({ username, userid });
 };
 
-module.exports = {register,login,check}
+module.exports = { register, login, check };
