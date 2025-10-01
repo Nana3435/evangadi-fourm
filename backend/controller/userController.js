@@ -48,6 +48,9 @@ const register = async (req, res) => {
     return res.status(StatusCodes.CREATED).json({
       message: "User registered successfuly!",
       token,
+      data:{
+        username, firstname, lastname, email
+      }
     });
   } catch (error) {
     console.error(" Register error:", error.message);
