@@ -49,7 +49,7 @@ const register = async (req, res) => {
       message: "User registered successfuly!",
       token,
       data:{
-        username, firstname, lastname, email
+        userid,username, firstname, lastname, email
       }
     });
   } catch (error) {
