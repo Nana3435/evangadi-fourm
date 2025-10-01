@@ -1,12 +1,13 @@
 const db =require('../db/dbConfig')
-const {StatusCodes} = require('http-status-codes')
+const {StatusCodes} = require('http-status-codes');
+
 
 
 const postAnswer =async (req,res)=>{
 
   // get necessary information from req params and body
-  const {questionid} = req.params
-  const {userid,answer} = req.body
+  const { answer, questionid } = req.body;
+  const {userid}= req.user
   
   // return error if an empty field is returned for answer field
   if (!answer) {
