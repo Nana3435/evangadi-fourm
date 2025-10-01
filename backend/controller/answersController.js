@@ -26,7 +26,8 @@ const postAnswer =async (req,res)=>{
        .status(StatusCodes.CREATED)
        .json({ msg: "answer posted successfully" });
   } catch (error) {
-    res.status(500).json({msg:error.message})
+    console.log(error.message)
+    res.status(500).json({msg:"Something goes wrong please try later"})
   }
 }
 
@@ -46,7 +47,8 @@ const getAnswer = async(req, res) => {
     const [answers] = await db.query("select * from answers where questionid=?",[questionid]);
     return res.status(StatusCodes.ACCEPTED).json({ answers });
   } catch (error) {
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ msg: error.message });
+    console.log(error.message);
+    res.status(500).json({ msg: "Something goes wrong please try later" });
   }
 
 };
