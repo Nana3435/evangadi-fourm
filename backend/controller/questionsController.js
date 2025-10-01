@@ -1,5 +1,6 @@
 const crypto = require('crypto');
 const db = require('../db/dbConfig');
+const { StatusCodes } = require("http-status-codes");
 
 const postQuestion = async (req, res) => {
     try {
@@ -7,7 +8,7 @@ const postQuestion = async (req, res) => {
         const { title, description, tag } = req.body;
        //validation
         if (!title || !description) {
-            return res.status(400).json({
+            return res.status(StatusCodes.BAD_REQUEST).json({
                 error: true,
                 message: "Title and description are required"
             });
@@ -30,7 +31,7 @@ const postQuestion = async (req, res) => {
             tag || null
         ]);
 
-        res.status(201).json({
+        res.status(StatusCodes.CREATED).json({
             error: false,
             message: "Question posted successfully",
             data: {
@@ -43,7 +44,7 @@ const postQuestion = async (req, res) => {
 
     } catch (error) {
         console.error('Error posting question:', error);
-        res.status(500).json({
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
             error: true,
             message: "Internal server error",
             details: error.message
@@ -75,14 +76,14 @@ const getAllQuestions = async (req, res) => {
 
         // Check if questions exist
         if (questions.length === 0) {
-            return res.status(404).json({
+            return res.status(StatusCodes.NOT_FOUND).json({
                 error: true,
                 message: "No questions found",
                 data: []
             });
         }
 
-        res.status(200).json({
+        res.status(StatusCodes.OK).json({
             error: false,
             message: "Questions retrieved successfully",
             data: questions,
@@ -91,7 +92,7 @@ const getAllQuestions = async (req, res) => {
 
     } catch (error) {
         console.error('Error fetching questions:', error);
-        res.status(500).json({
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
             error: true,
             message: "Internal server error",
             details: error.message
@@ -106,7 +107,7 @@ const getSingleQuestion = async (req, res) => {
 
         // Validate questionid parameter
         if (!questionid) {
-            return res.status(400).json({
+            return res.status(StatusCodes.BAD_REQUEST).json({
                 error: true,
                 message: "Question ID is required"
             });
@@ -133,7 +134,7 @@ const getSingleQuestion = async (req, res) => {
 
         // Check if question exists
         if (questions.length === 0) {
-            return res.status(404).json({
+            return res.status(StatusCodes.NOT_FOUND).json({
                 error: true,
                 message: "Question not found",
                 data: null
@@ -141,7 +142,7 @@ const getSingleQuestion = async (req, res) => {
         }
 
         // Return the single question
-        res.status(200).json({
+        res.status(StatusCodes.OK).json({
             error: false,
             message: "Question retrieved successfully",
             data: questions[0] // Return the first (and only) result
@@ -149,7 +150,7 @@ const getSingleQuestion = async (req, res) => {
 
     } catch (error) {
         console.error('Error fetching single question:', error);
-        res.status(500).json({
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
             error: true,
             message: "Internal server error",
             details: error.message
