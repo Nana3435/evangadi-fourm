@@ -72,7 +72,7 @@ const login = async (req, res) => {
 
   try {
     const [rows] = await db.query(
-      "SELECT userid,username,password FROM users WHERE email = ?",
+      "SELECT * FROM users WHERE email = ?",
       [email]
     );
 
@@ -83,7 +83,7 @@ const login = async (req, res) => {
       return res.status(StatusCodes.UNAUTHORIZED).json({ error: "User not found" });
     }
 
-    const { userid, username } = user;
+    const { userid, username, firstname, lastname } = user;
     const isMatch = await bcrypt.compare(password, user.password);
     // console.log(" Password match:", isMatch);
 
@@ -100,6 +100,7 @@ const login = async (req, res) => {
     return res.status(StatusCodes.OK).json({
       message: "Login successful!",
       token,
+      data:{userid,username,firstname,lastname,email:user.email}
     });
   } catch (error) {
     console.error("Login error:", error.message);
