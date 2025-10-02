@@ -6,10 +6,10 @@ const { StatusCodes } = require("http-status-codes");
 // register
 const register = async (req, res) => {
   const { username, firstname, lastname, email, password } = req.body;
-  console.log(" Register request received:", req.body);
+  // console.log(" Register request received:", req.body);
 
   if (!username || !firstname || !lastname || !email || !password) {
-    // console.log(" Missing registration fields");
+    console.log(" Missing registration fields");
     return res
       .status(StatusCodes.BAD_REQUEST)
       .json({ error: "All fields are required" });
@@ -28,6 +28,11 @@ const register = async (req, res) => {
         .status(StatusCodes.BAD_REQUEST)
         .json({ error: "Email already registered" });
     }
+
+    if (password.length<8) {
+      return res.status(StatusCodes.BAD_REQUEST).json({message:"Password must be at least 8 character"})
+    }
+
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
     // console.log(" Hashed password:", hashedPassword);
@@ -49,7 +54,7 @@ const register = async (req, res) => {
       message: "User registered successfuly!",
       token,
       data:{
-        username, firstname, lastname, email
+        userid,username, firstname, lastname, email
       }
     });
   } catch (error) {
@@ -72,7 +77,7 @@ const login = async (req, res) => {
 
   try {
     const [rows] = await db.query(
-      "SELECT userid,username,password FROM users WHERE email = ?",
+      "SELECT * FROM users WHERE email = ?",
       [email]
     );
 
@@ -83,7 +88,7 @@ const login = async (req, res) => {
       return res.status(StatusCodes.UNAUTHORIZED).json({ error: "User not found" });
     }
 
-    const { userid, username } = user;
+    const { userid, username, firstname, lastname } = user;
     const isMatch = await bcrypt.compare(password, user.password);
     // console.log(" Password match:", isMatch);
 
@@ -100,6 +105,7 @@ const login = async (req, res) => {
     return res.status(StatusCodes.OK).json({
       message: "Login successful!",
       token,
+      data:{userid,username,firstname,lastname,email:user.email}
     });
   } catch (error) {
     console.error("Login error:", error.message);
@@ -112,7 +118,7 @@ const login = async (req, res) => {
 const check = (req, res) => {
   const {username,userid} = req.user;
 
-  res.json({ username,userid});
+  res.status(StatusCodes.OK).json({message: "Valid user", username,userid});
 };
 
 module.exports = { register, login, check };
