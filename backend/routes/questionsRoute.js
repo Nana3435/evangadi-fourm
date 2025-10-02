@@ -23,8 +23,9 @@ const {
 // GET /api/questions - Get all questions
 router.get("/all-questions", getAllQuestions);
 
-// GET /api/question/single-question/:questionid - Get single question by questionid
-router.get("/single-question/:questionid", getSingleQuestion);
+questionRouter.post("/post-question", postQuestion);
+questionRouter.get("/all-questions", getAllQuestions);
+questionRouter.get("/single-question/:questionid", getSingleQuestion);
 
 // POST /api/questions - Create new question
 router.post("/", postQuestion);
