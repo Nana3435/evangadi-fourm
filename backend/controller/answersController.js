@@ -5,7 +5,7 @@ const {StatusCodes} = require('http-status-codes');
 
 const postAnswer =async (req,res)=>{
 
-  // get necessary information from req params and body
+  // get necessary information from req
   const { answer, questionid } = req.body;
   const {userid}= req.user
   
@@ -54,9 +54,10 @@ const getAnswer = async(req, res) => {
     }
     // fetching an answer for a specific question with a given question id
     const [answers] = await db.query(
-      `select * from answers where questionid=?`,
+      `select a.answerid,a.answer,a.created_at,u.username from answers a join users u on u.userid=a.userid where questionid=?`,
       [questionid]
     );
+    // console.log(answers);
     return res.status(StatusCodes.ACCEPTED).json({ answers });
   } catch (error) {
     console.log(error.message);

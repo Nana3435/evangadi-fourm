@@ -28,6 +28,11 @@ const register = async (req, res) => {
         .status(StatusCodes.BAD_REQUEST)
         .json({ error: "Email already registered" });
     }
+
+    if (password.length<8) {
+      return res.status(StatusCodes.BAD_REQUEST).json({message:"Password must be at least 8 character"})
+    }
+
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
     // console.log(" Hashed password:", hashedPassword);
@@ -113,7 +118,7 @@ const login = async (req, res) => {
 const check = (req, res) => {
   const {username,userid} = req.user;
 
-  res.json({ username,userid});
+  res.status(StatusCodes.OK).json({message: "Valid user", username,userid});
 };
 
 module.exports = { register, login, check };
