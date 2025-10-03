@@ -1,87 +1,69 @@
 const db = require("../db/dbConfig");
+const { StatusCodes } = require("http-status-codes");
 
-
-const checkQuestionExists = async (questionid) => {
-  const [rows] = await db.execute(
-    "SELECT * FROM questions WHERE questionid = ?",
-    [questionid]
-  );
-  return rows.length > 0;
-};
-
-// POST an answer
 const postAnswer = async (req, res) => {
-  const { questionid, answer } = req.body;
-  const { userid } = req.user; 
+  // get necessary information from req
+  const { answer, questionid } = req.body;
+  const { userid } = req.user;
 
-  if (!questionid || !answer) {
-    return res.status(400).json({
-      error: "Bad Request",
-      message: "Please provide questionid and answer",
-    });
+  // return error if an empty field is returned for answer field
+  if (!answer) {
+    return res
+      .status(StatusCodes.BAD_REQUEST)
+      .json({ msg: "please fill the answer field" });
   }
-
   try {
-   
-    if (!(await checkQuestionExists(questionid))) {
-      return res.status(400).json({
-        error: "Bad Request",
-        message: "Question does not exist",
-      });
+    // getting question id from questions table and check whether that question is there
+    const [questions] = await db.query(
+      `select questionid from questions where questionid=?`,
+      [questionid]
+    );
+    if (questions.length === 0) {
+      return res
+        .status(StatusCodes.BAD_REQUEST)
+        .json({ msg: "this question is no more available" });
     }
 
-    // Insert answer
-    await db.execute(
-      "INSERT INTO answers (questionid, userid, answer) VALUES (?, ?, ?)",
-      [questionid, userid, answer]
+    // post an answer
+    await db.query(
+      `insert into answers(userid,questionid,answer) values (?,?,?)`,
+      [userid, questionid, answer]
     );
-
-    res.status(201).json({ message: "Answer posted successfully" });
+    return res
+      .status(StatusCodes.CREATED)
+      .json({ msg: "answer posted successfully", data: { userid, answer } });
   } catch (error) {
-    console.error("Error posting answer:", error.message);
-    res.status(500).json({
-      error: "Internal Server Error",
-      message: "An unexpected error occurred.",
-    });
+    console.log(error.message);
+    res.status(500).json({ msg: "Something goes wrong please try later" });
   }
 };
 
-// GET answers for a specific question
 const getAnswer = async (req, res) => {
-  const { question_id } = req.params; // match the route param name
+  // get question id from req params
+  const { questionid } = req.params;
 
   try {
-    // Check if question exists
-    if (!(await checkQuestionExists(question_id))) {
-      return res.status(404).json({
-        error: "Not Found",
-        message: "The requested question could not be found.",
-      });
-    }
-
-    // Fetch answers
-    const [rows] = await db.execute(
-      "SELECT * FROM answers WHERE questionid = ?",
-      [question_id]
+    // getting question id from questions table and check whether that question is there
+    const [questions] = await db.query(
+      `select questionid from questions where questionid=?`,
+      [questionid]
     );
-
-    
-    const answers = rows.map((row) => ({
-      answerId: row.answerid,
-      questionId: row.questionid,
-      userId: row.userid,
-      answerText: row.answer,
-    }));
-
-    res.status(200).json({ answers });
+    if (questions.length === 0) {
+      return res
+        .status(StatusCodes.BAD_REQUEST)
+        .json({ msg: "this question is no longer available" });
+    }
+    // fetching an answer for a specific question with a given question id
+    const [answers] = await db.query(
+      `select a.answerid,a.answer,a.created_at,u.username from answers a join users u on u.userid=a.userid where questionid=?`,
+      [questionid]
+    );
+    // console.log(answers);
+    return res.status(StatusCodes.ACCEPTED).json({ answers });
   } catch (error) {
-    console.error("Error fetching answers:", error.message);
-    res.status(500).json({
-      error: "Internal Server Error",
-      message: "An unexpected error occurred.",
-    });
+    console.log(error.message);
+    res.status(500).json({ msg: "Something goes wrong please try later" });
   }
 };
-
 
 module.exports = { postAnswer, getAnswer };
