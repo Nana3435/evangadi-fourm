@@ -19,16 +19,17 @@ const {
   getAllQuestions,
   getSingleQuestion,
 } = require("../controller/questionsController.js");
+const authMiddleware = require("../midllewares/authMiddleware");
 
 // GET /api/questions - Get all questions
 router.get("/all-questions", getAllQuestions);
 
-questionRouter.post("/post-question", postQuestion);
-questionRouter.get("/all-questions", getAllQuestions);
-questionRouter.get("/single-question/:questionid", getSingleQuestion);
+// questionRouter.post("/post-question", postQuestion);
+// questionRouter.get("/all-questions", getAllQuestions);
+// questionRouter.get("/single-question/:questionid", getSingleQuestion);
 
 // POST /api/questions - Create new question
-router.post("/", postQuestion);
+router.post("/", postQuestion); // authMiddleware,
 
 // // PUT /api/questions/:id - Update question
 // router.put("/:id", updateQuestion);

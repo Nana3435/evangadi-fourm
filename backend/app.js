@@ -1,24 +1,16 @@
-require('dotenv').config()
-const express= require('express')
-const cors = require('cors')
-const db = require('./db/dbConfig')
-const app= express();
-const port =5000
+require("dotenv").config();
+const express = require("express");
+const cors = require("cors");
+const db = require("./db/dbConfig");
+const app = express();
+const port = 5000;
 const userRouter = require("./routes/userRoute");
 const questionRouter = require("./routes/questionsRoute");
-const answerRouter = require('./routes/answerRoute')
-
-
-
-
-
-
-
-
+const answerRouter = require("./routes/answerRoute");
 
 // middlewares
-app.use(cors({extended:true}))
-app.use(express.json())
+app.use(cors({ extended: true }));
+app.use(express.json());
 
 app.get("/", (req, res) => {
   res.json({ response: "success" });
