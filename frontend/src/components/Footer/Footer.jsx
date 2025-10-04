@@ -7,11 +7,11 @@ import { AiOutlineYoutube } from "react-icons/ai";
 const Footer = () => {
   return (
     <>
-      <footer class={classes.footer}>
-        <div class={classes.footerContainer}>
-          <div class={classes.footerLogo}>
+      <footer className={classes.footer}>
+        <div className={classes.footerContainer}>
+          <div className={classes.footerLogo}>
             <img src={footerLogo} alt="Evangadi Logo" />
-            <div class={classes.socialIcons}>
+            <div className={classes.socialIcons}>
               <a href="#">
                 <FiFacebook />
               </a>
@@ -24,14 +24,14 @@ const Footer = () => {
             </div>
           </div>
 
-          <div class={classes.footerLinks}>
+          <div className={classes.footerLinks}>
             <h3>Useful Link</h3>
             <a href="#">How it works</a>
             <a href="#">Terms of Service</a>
             <a href="#">Privacy policy</a>
           </div>
 
-          <div class={classes.footerContact}>
+          <div className={classes.footerContact}>
             <h3>Contact Info</h3>
             <p>Evangadi Networks</p>
             <p>
