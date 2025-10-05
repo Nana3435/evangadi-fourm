@@ -7,6 +7,7 @@ const port = 5000;
 const userRouter = require("./routes/userRoute");
 const questionRouter = require("./routes/questionsRoute");
 const answerRouter = require("./routes/answerRoute");
+const authMiddlewares = require("./midllewares/authMiddleware");
 
 // middlewares
 app.use(cors({ extended: true }));
@@ -17,8 +18,8 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/user", userRouter);
-app.use("/api/question", questionRouter);
-app.use("/api/answer", answerRouter);
+app.use("/api/question", authMiddlewares, questionRouter);
+app.use("/api/answer", authMiddlewares, answerRouter);
 
 const start = async () => {
   try {

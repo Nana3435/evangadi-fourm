@@ -3,8 +3,8 @@ const db = require("../db/dbConfig");
 const { StatusCodes } = require("http-status-codes");
 
 const postQuestion = async (req, res) => {
-  // const { username, userid } = req.user;
-  const userid = "test-userid"; // temporary for testing without auth
+  const { username, userid } = req.user;
+  // const userid = 6; // temporary for testing without auth
   try {
     //extract data from request body
     const { title, description, tag } = req.body;
