@@ -11,8 +11,8 @@
 .answer_title {
   font-size: 22px;
   font-weight: 600;
-  color: #222;
-  margin-bottom: 10px;
+  color: #363A43;
+  margin-bottom: 15px;
 }
 
 .question_link {
@@ -61,14 +61,13 @@
   background-color: #274bcc;
 }
 
-/* Error styling for textarea */
+/* Error textarea */
 .error {
-  border: 2px solid #ff4d4f; /* bright red border to indicate error */
-  background-color: #fff1f0; /* light red background for visibility */
-  outline: none; /* removes default focus outline */
+  border: 2px solid #ff4d4f; 
+  background-color: #fff1f0; 
+  outline: none; 
 }
 
-/* Error message text */
 .error_text {
   color: #ff4d4f; 
   font-size: 0.9rem;
@@ -76,7 +75,7 @@
   display: block;
 }
 
-/* shake animation for textarea when error occurs */
+/* shake animation textarea */
 @keyframes shake {
   0% { transform: translateX(0); }
   20% { transform: translateX(-5px); }

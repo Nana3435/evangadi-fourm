@@ -50,12 +50,12 @@ const PostAnswer = ({ questionid }) => {
           className={`${classes.answer_textarea} ${error ? classes.error : ""}`}
           placeholder="Your Answer..."
         ></textarea>
-        <button onClick={handleSubmit} className={classes.submit_btn}>
-          Post Your Answer
-        </button>
         {error && (
           <small className={classes.error_text}>Please provide an answer</small>
         )}
+        <button onClick={handleSubmit} className={classes.submit_btn}>
+          Post Your Answer
+        </button>
       </div>
     </>
   );
