@@ -1,0 +1,72 @@
+.homeBody {
+  width: 90%;
+  max-width: 900px;
+  margin: 30px auto;
+  font-family: Arial, sans-serif;
+}
+
+/* Top section */
+.topSection {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.username {
+  color: #555;
+  font-weight: 600;
+}
+
+.askBtn {
+  background-color: #2563eb;
+  color: #fff;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.askBtn:hover {
+  background-color: #9cb0e9;
+}
+
+/* Question list */
+.questionSection h2 {
+  margin-bottom: 12px;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.questionCard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  background: #fff;
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+}
+
+.avatar {
+  width: 40px;
+  border-radius: 50%;
+}
+
+.questionText {
+  flex: 2;
+  color: #333;
+}
+
+.arrowIcon {
+  color: gray;
+}
