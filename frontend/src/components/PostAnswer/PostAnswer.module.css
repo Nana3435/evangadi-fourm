@@ -61,6 +61,35 @@
   background-color: #274bcc;
 }
 
+/* Error styling for textarea */
+.error {
+  border: 2px solid #ff4d4f; /* bright red border to indicate error */
+  background-color: #fff1f0; /* light red background for visibility */
+  outline: none; /* removes default focus outline */
+}
+
+/* Error message text */
+.error_text {
+  color: #ff4d4f; 
+  font-size: 0.9rem;
+  margin-top: 5px;
+  display: block;
+}
+
+/* shake animation for textarea when error occurs */
+@keyframes shake {
+  0% { transform: translateX(0); }
+  20% { transform: translateX(-5px); }
+  40% { transform: translateX(5px); }
+  60% { transform: translateX(-5px); }
+  80% { transform: translateX(5px); }
+  100% { transform: translateX(0); }
+}
+
+.error.shake {
+  animation: shake 0.3s ease-in-out;
+}
+
 @media (max-width: 768px) {
   .answer_container {
     max-width: 90%;

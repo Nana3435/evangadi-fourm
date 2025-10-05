@@ -4,6 +4,7 @@ import Register from './pages/Register/Register';
 import Home from './pages/Home/Home';
 import PostQuestion from './pages/PostQuestion/PostQuestion';
 import PostAnswer from './components/PostAnswer/PostAnswer';
+import Answers from './pages/Answers/Answers';
 
 const Router = () => {
   return (
@@ -11,9 +12,9 @@ const Router = () => {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/" element={<Home/>} />
-        <Route path="/post-question" element={<PostQuestion />} />
-        <Route path="/answers" element={<PostAnswer />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/post-question/:questionid" element={<Answers />} />
+        <Route path="/post-anwer/:questionid" element={<Answers />} />
       </Routes>
     </>
   );
