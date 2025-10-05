@@ -1,0 +1,11 @@
+:root {
+  --primary: #f08a1d;
+  --primary-dark: #d87512;
+  --text: #333333;
+  --muted: #6b7280;
+  --card: #ffffff;
+  --bg: #f9fafb;
+  --border: #e5e7eb;
+  --shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+  --font: "Roboto", "Segoe UI", Helvetica, Arial, sans-serif;
+}
