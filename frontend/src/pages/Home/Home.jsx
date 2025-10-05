@@ -2,46 +2,69 @@ import Layout from "../../components/Layout/Layout";
 import styles from "./Home.module.css";
 import { FaChevronRight } from "react-icons/fa";
 import { useState, useEffect } from "react";
-import axios from "axios";
+import axios from "../../Utility/axiosConfig";
+import { Link, useNavigate } from "react-router-dom";
 
 const Home = () => {
   const [questions, setQuestions] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
-  // Fetch questions from backend when the component loads
+  const handleAskQuestion = () => {
+    navigate("/post-question");
+  };
+
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/questions");
+        const token = localStorage.getItem("token");
+        setLoading(true);
+        const response = await axios.get("/question/all-questions", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
-        setQuestions(response.data); // Assuming the backend returns an array
+        console.log("API Response:", response.data);
+        setQuestions(response.data.data);
       } catch (error) {
         console.error("Error fetching questions:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchQuestions();
-  }, []); // Empty dependency = runs once on mount
+  }, []);
 
   return (
     <Layout>
       <div className={styles.homeBody}>
         {/* Top Section */}
         <div className={styles.topSection}>
+          <button className={styles.askBtn} onClick={handleAskQuestion}>
+            Ask Question
+          </button>
           <h3>
-            Welcome: <span className={styles.username}>beti</span>
+            Welcome: <span className={styles.username}>user</span>
           </h3>
-          <button className={styles.askBtn}>Ask Question</button>
         </div>
 
         {/* Question List */}
         <section className={styles.questionSection}>
           <h2>Questions</h2>
 
-          {questions.length === 0 ? (
+          {loading ? (
+            <p>Loading questions...</p>
+          ) : questions.length === 0 ? (
             <p>No questions yet.</p>
           ) : (
-            questions.map((q, i) => (
-              <div key={i} className={styles.questionCard}>
+            questions?.map((q, i) => (
+              <Link
+                to={`/answers/${q.questionid}`}
+                key={i}
+                className={styles.questionCard}
+              >
                 <div className={styles.userInfo}>
                   <img
                     src="https://cdn-icons-png.flaticon.com/512/847/847969.png"
@@ -50,9 +73,14 @@ const Home = () => {
                   />
                   <span className={styles.username}>{q.username}</span>
                 </div>
-                <p className={styles.questionText}>{q.text}</p>
+
+                {/* Added questionContent wrapper */}
+                <div className={styles.questionContent}>
+                  <p className={styles.questionText}>{q.title}</p>
+                </div>
+
                 <FaChevronRight className={styles.arrowIcon} />
-              </div>
+              </Link>
             ))
           )}
         </section>
