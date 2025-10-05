@@ -1,7 +1,8 @@
 import React, { useRef, useState } from "react";
 import Layout from "../../components/Layout/Layout";
 import styles from "./register.module.css";
-import axios from "axios";
+import axiosBase from "../../utils/axiosInstance";
+import { toast } from "react-toastify";
 
 const Register = () => {
   const firstnameDom = useRef();
@@ -28,16 +29,16 @@ const Register = () => {
     console.log("Submitting registration with:", payload);
 
     try {
-      const res = await axios.post(
-        "http://localhost:5000/api/user/register",
-        payload
-      );
+      const res = await axiosBase.post("/user/register", payload);
+      localStorage.setItem("token", res.data.token);
       console.log("Registration successful:", res.data);
+      toast.success(res.data.message);
     } catch (error) {
       console.log(
         "Registration failed:",
         error.response?.data || error.message
       );
+      toast.error(error.response?.data.error || error.message);
     }
   }
 
