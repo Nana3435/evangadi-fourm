@@ -2,21 +2,27 @@ import Layout from "../Layout/Layout";
 import classes from "./PostAnswer.module.css";
 import { useRef, useState } from "react";
 import axiosBase from "../../../axiosConfig";
+import { ClipLoader } from "react-spinners";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const PostAnswer = ({ questionid }) => {
- const [error, setError] = useState(false);
+  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const answer = useRef(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const answerValue = answer.current.value.trim();
-   
-  if (!answerValue) {
-    setError(true);
-    return;
-  } else {
-    setError(false);
-  }
+    setLoading(true);
+    if (!answerValue) {
+      setError(true);
+      setLoading(false);
+      return;
+    } else {
+      setError(false);
+    }
     const token =
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOjQsInVzZXJuYW1lIjoibWVyb24iLCJpYXQiOjE3NTk2ODE0MDAsImV4cCI6MTc1OTc2NzgwMH0.8PjYU_IskYfny5ND-U5NqiipWKc5HezyfWUQU3FEUP0";
     try {
@@ -32,10 +38,14 @@ const PostAnswer = ({ questionid }) => {
           },
         }
       );
-      console.log("Answer posted successfully!", res.data);
+       toast.success("Answer posted successfully!", res.data);
+
       answer.current.value = "";
     } catch (error) {
-      console.log(error.response || error.message);
+      alert(error.response || error.message);
+      toast.error("Failed to post answer. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
   return (
@@ -54,9 +64,10 @@ const PostAnswer = ({ questionid }) => {
           <small className={classes.error_text}>Please provide an answer</small>
         )}
         <button onClick={handleSubmit} className={classes.submit_btn}>
-          Post Your Answer
+          {loading ? <ClipLoader size={18} color="#fff" /> : "Post Your Answer"}
         </button>
       </div>
+      <ToastContainer position="top-center" autoClose={1000} />
     </>
   );
 };
