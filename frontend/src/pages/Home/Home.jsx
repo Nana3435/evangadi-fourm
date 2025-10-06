@@ -1,14 +1,16 @@
 import Layout from "../../components/Layout/Layout";
 import styles from "./Home.module.css";
 import { FaChevronRight } from "react-icons/fa";
-import { useState, useEffect } from "react";
+import { useState, useEffect,useContext } from "react";
 import axios from "../../Utility/axiosConfig";
 import { Link, useNavigate } from "react-router-dom";
+import { AppContext } from "../../Router";
 
 const Home = () => {
   const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const {user} =useContext(AppContext)
 
   const handleAskQuestion = () => {
     navigate("/post-question");
@@ -46,7 +48,7 @@ const Home = () => {
             Ask Question
           </button>
           <h3>
-            Welcome: <span className={styles.username}>user</span>
+            Welcome: <span className={styles.username}>{user.username}</span>
           </h3>
         </div>
 
