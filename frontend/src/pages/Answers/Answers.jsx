@@ -11,10 +11,9 @@ const Answers = () => {
   const {questionid} = useParams()
   return (
     <Layout>
-        <QuestionDetail/>
-        <AnswersDetail questionid={questionid}/>
-        <PostAnswer questionid={questionid}/>
-        
+      <QuestionDetail questionid={questionid} />
+      <AnswersDetail questionid={questionid} />
+      <PostAnswer questionid={questionid} />
     </Layout>
   );
 }
