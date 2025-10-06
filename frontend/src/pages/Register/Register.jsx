@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import {useNavigate} from 'react-router-dom'
+import {useNavigate,Link} from 'react-router-dom'
 import Layout from "../../components/Layout/Layout";
 import styles from "./register.module.css";
 import axiosBase from "../../utils/axiosInstance";
@@ -56,9 +56,9 @@ const Register = () => {
 
             <p className={styles.topSignin}>
               Already have an account?{" "}
-              <a href="/login" className={styles.orangeLink}>
+              <Link to={"/login"} className={styles.orangeLink}>
                 Sign in
-              </a>
+              </Link>
             </p>
 
             <form className={styles.form} onSubmit={handleSubmit}>
@@ -189,9 +189,9 @@ const Register = () => {
 
               <p className={styles.bottomSignin}>
                 Already have an account?{" "}
-                <a href="/login" className={styles.orangeLink}>
+                <Link to={"/login"} className={styles.orangeLink}>
                   Sign In
-                </a>
+                </Link>
               </p>
             </form>
           </div>

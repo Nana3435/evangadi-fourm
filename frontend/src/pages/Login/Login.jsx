@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Link } from "react-router-dom";
 import axios from "../../utils/axiosInstance";
 import Layout from "../../components/Layout/Layout";
 import classes from "./Login.module.css";
@@ -43,7 +43,7 @@ const Login = () => {
             <h2>Login your account</h2>
             <p className={classes.sub}>
               Don't have an account?{" "}
-              <a href="/register">Create a new account</a>
+              <Link to={"/register"}>Create a new account</Link>
             </p>
 
             <form onSubmit={handleSubmit}>
@@ -118,7 +118,7 @@ const Login = () => {
               </button>
 
               <div className={classes.alt_link}>
-                <a href="/register">Create an account?</a>
+                <Link to={"/register"}>Create an account?</Link>
               </div>
             </form>
           </div>
