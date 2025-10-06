@@ -51,7 +51,7 @@ const getAnswer = async (req, res) => {
     if (questions.length === 0) {
       return res
         .status(StatusCodes.BAD_REQUEST)
-        .json({ msg: "this question is no longer available" });
+        .json({error:true, msg: "this question is no longer available" });
     }
     // fetching an answer for a specific question with a given question id
     const [answers] = await db.query(
@@ -59,10 +59,10 @@ const getAnswer = async (req, res) => {
       [questionid]
     );
     // console.log(answers);
-    return res.status(StatusCodes.ACCEPTED).json({ answers });
+    return res.status(StatusCodes.ACCEPTED).json({error:false, answers });
   } catch (error) {
     console.log(error.message);
-    res.status(500).json({ msg: "Something goes wrong please try later" });
+    res.status(500).json({error:true, msg: "Something goes wrong please try later" });
   }
 };
 

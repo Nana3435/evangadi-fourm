@@ -7,12 +7,14 @@ import PostAnswer from '../../components/PostAnswer/PostAnswer'
 import { useParams } from 'react-router-dom'
 
 const Answers = () => {
- const { questionid } = useParams();
+
+  const {questionid} = useParams()
   return (
     <Layout>
-      <QuestionDetail />
-      <AnswersDetail />
-      <PostAnswer questionid={questionid} />
+        <QuestionDetail/>
+        <AnswersDetail questionid={questionid}/>
+        <PostAnswer questionid={questionid}/>
+        
     </Layout>
   );
 }

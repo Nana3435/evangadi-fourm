@@ -50,12 +50,13 @@
 
 /* responsive design */
 @media (max-width: 768px) {
-  .footer-container {
+  .header .container {
     flex-direction: column;
-    text-align: center;
+    gap: 10px;
   }
 
-  .social-icons {
+  .nav-links {
+    flex-wrap: wrap;
     justify-content: center;
   }
 }
