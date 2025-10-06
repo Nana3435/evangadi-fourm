@@ -1,4 +1,5 @@
 import React, { useRef, useState } from "react";
+import {useNavigate} from 'react-router-dom'
 import Layout from "../../components/Layout/Layout";
 import styles from "./register.module.css";
 import axiosBase from "../../utils/axiosInstance";
@@ -12,6 +13,7 @@ const Register = () => {
   const passwordDom = useRef();
 
   const [showPassword, setShowPassword] = useState(false);
+  const navigate =useNavigate()
 
   const toggleShowPassword = () => setShowPassword((s) => !s);
 
@@ -34,7 +36,8 @@ const Register = () => {
       const res = await axiosBase.post("/user/register", payload);
       localStorage.setItem("token", res.data.token);
       console.log("Registration successful:", res.data);
-      toast.success(res.data.message);
+      toast.success(`${res.data.message} Please login`);
+      navigate('/login')
     } catch (error) {
       console.log(
         "Registration failed:",
