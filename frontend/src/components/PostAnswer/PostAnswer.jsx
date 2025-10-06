@@ -23,8 +23,8 @@ const PostAnswer = ({ questionid }) => {
     } else {
       setError(false);
     }
-    const token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOjQsInVzZXJuYW1lIjoibWVyb24iLCJpYXQiOjE3NTk2ODE0MDAsImV4cCI6MTc1OTc2NzgwMH0.8PjYU_IskYfny5ND-U5NqiipWKc5HezyfWUQU3FEUP0";
+    const token =localStorage.getItem('token')
+      
     try {
       const res = await axiosBase.post(
         "answer/post-answer",
