@@ -4,13 +4,12 @@ const cors = require("cors");
 const db = require("./db/dbConfig");
 const app = express();
 const port = 5000;
-// const port = process.env.PORT || 5000;
 const userRouter = require("./routes/userRoute");
 const questionRouter = require("./routes/questionsRoute");
 const answerRouter = require("./routes/answerRoute");
 const authMiddlewares = require("./midllewares/authMiddleware");
 
-// middlewares to extract json data and handle cors errors
+// middlewares
 app.use(cors({ extended: true }));
 app.use(express.json());
 

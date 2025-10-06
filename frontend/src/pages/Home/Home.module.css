@@ -1,0 +1,165 @@
+.homeBody {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.topSection {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.askBtn {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s;
+}
+
+.askBtn:hover {
+  background: #0056b3;
+}
+
+.topSection h3 {
+  margin: 0;
+  color: #333;
+}
+
+.username {
+  color: #007bff;
+  font-weight: bold;
+}
+
+.questionSection h2 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Question Card Styles */
+.questionCard {
+  display: flex;
+  align-items: flex-start;
+  padding: 20px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 16px;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.questionCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  text-decoration: none;
+  color: inherit;
+}
+
+/* User Info Section - Left Side */
+.userInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 20px;
+  min-width: 80px;
+}
+
+.avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 8px;
+}
+
+.userInfo .username {
+  font-size: 14px;
+  color: #666;
+  text-align: center;
+  word-break: break-word;
+  max-width: 80px;
+}
+
+/* Question Content - Positioned slightly under the avatar */
+.questionContent {
+  flex: 1;
+  margin-top: 8px; /* This pushes the question content slightly down */
+}
+
+.questionText {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #333;
+  padding-right: 20px;
+}
+
+/* Arrow Icon */
+.arrowIcon {
+  color: #666;
+  font-size: 18px;
+  margin-left: auto;
+  flex-shrink: 0;
+  margin-top: 8px; /* Align arrow with question text */
+}
+
+/* Loading and Empty States */
+.loading,
+.empty {
+  text-align: center;
+  padding: 40px;
+  color: #666;
+  font-size: 16px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .homeBody {
+    padding: 15px;
+  }
+
+  .topSection {
+    flex-direction: column;
+    gap: 15px;
+    align-items: flex-start;
+  }
+
+  .questionCard {
+    padding: 15px;
+  }
+
+  .userInfo {
+    margin-right: 15px;
+    min-width: 60px;
+  }
+
+  .avatar {
+    width: 40px;
+    height: 40px;
+  }
+
+  .userInfo .username {
+    font-size: 12px;
+    max-width: 60px;
+  }
+
+  .questionText {
+    font-size: 14px;
+  }
+
+  .questionContent {
+    margin-top: 6px;
+  }
+  s .arrowIcon {
+    margin-top: 6px;
+  }
+}
