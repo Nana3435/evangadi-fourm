@@ -11,7 +11,7 @@ const Header = () => {
             <img src={headerLogo} alt="Evangadi Logo" />
           </Link>
           <nav className={classes.navLinks}>
-            <a href="#">Home</a>
+            <a href="/">Home</a>
             <a href="#">How it Works</a>
             <button className={classes.signinBtn}>Sign In</button>
           </nav>
