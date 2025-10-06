@@ -4,7 +4,7 @@ import Layout from "../../components/Layout/Layout";
 import Classes from "./postQuestion.module.css";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import axios from "../../Utility/axios";
+import axios from "../../utils/axiosInstance";
 
 const PostQuestion = () => {
   const navigate = useNavigate();
