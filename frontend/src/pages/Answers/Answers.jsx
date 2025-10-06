@@ -13,10 +13,10 @@ const Answers = () => {
     <Layout>
         <QuestionDetail/>
         <AnswersDetail questionid={questionid}/>
-        <PostAnswer/>
+        <PostAnswer questionid={questionid}/>
         
     </Layout>
-  )
+  );
 }
 
 export default Answers
