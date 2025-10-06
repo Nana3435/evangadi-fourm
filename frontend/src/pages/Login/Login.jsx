@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "../../utils/axios";
+import axios from "../../utils/axiosInstance";
 import Layout from "../../components/Layout/Layout";
 import classes from "./Login.module.css";
+import { toast } from 'react-toastify'
 
 const Login = () => {
   const navigate = useNavigate();
@@ -13,7 +14,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!email || !password) {
-      alert("Please fill all the fields");
+      toast.error("Please fill all the fields");
       return;
     }
     try {
@@ -21,14 +22,14 @@ const Login = () => {
       console.log(res.data);
       if (res && res.data.token) {
         localStorage.setItem("token", res.data.token);
-        alert("Login Successful");
+        toast.success("Login Successful");
         navigate("/home", { replace: true });
       } else {
         alert(res.data.message || "Login failed");
       }
     } catch (error) {
       console.log(error);
-      alert(error.response?.data?.error || "Server error");
+      toast.error(error.response?.data?.error || "Server error");
     }
   };
 

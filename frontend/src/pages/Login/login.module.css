@@ -142,10 +142,10 @@
 /* ===== Submit button ===== */
 .btn {
   display: block;
-  width: 160px;
-  height: 30px;
+  width: 100%;
+  padding-block: 15px;
   margin: 10px auto 0;
-  background: var(--primary);
+  background:#4A4AFF;
   color: #fff;
   border: none;
   border-radius: 6px;
@@ -155,7 +155,7 @@
   transition: background 0.2s ease;
 }
 .btn:hover {
-  background: var(--primary-dark);
+  background: #3939e7;
 }
 
 .alt_link {
