@@ -18,6 +18,7 @@ const Register = () => {
   async function handleSubmit(e) {
     e.preventDefault();
 
+
     const payload = {
       username: usernameDom.current.value,
       firstname: firstnameDom.current.value,
@@ -27,6 +28,7 @@ const Register = () => {
     };
 
     console.log("Submitting registration with:", payload);
+
 
     try {
       const res = await axiosBase.post("/user/register", payload);
