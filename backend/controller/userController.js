@@ -20,6 +20,10 @@ const register = async (req, res) => {
       "SELECT * FROM users WHERE email = ?",
       [email]
     );
+    const [existingUsername] = await db.query(
+      "SELECT * FROM users WHERE username = ?",
+      [username]
+    );
     // console.log(" Existing user check:", existingUser);
 
     if (existingUser.length > 0) {
@@ -29,8 +33,17 @@ const register = async (req, res) => {
         .json({ error: "Email already registered" });
     }
 
-    if (password.length<8) {
-      return res.status(StatusCodes.BAD_REQUEST).json({message:"Password must be at least 8 character"})
+    if (existingUsername.length > 0) {
+      // console.log(" username already registered:", username);
+      return res
+        .status(StatusCodes.BAD_REQUEST)
+        .json({ error: "Username already registered" });
+    }
+
+    if (password.length < 8) {
+      return res
+        .status(StatusCodes.BAD_REQUEST)
+        .json({ message: "Password must be at least 8 character" });
     }
 
     const salt = await bcrypt.genSalt(10);
@@ -53,9 +66,13 @@ const register = async (req, res) => {
     return res.status(StatusCodes.CREATED).json({
       message: "User registered successfuly!",
       token,
-      data:{
-        userid,username, firstname, lastname, email
-      }
+      data: {
+        userid,
+        username,
+        firstname,
+        lastname,
+        email,
+      },
     });
   } catch (error) {
     console.error(" Register error:", error.message);
@@ -72,20 +89,23 @@ const login = async (req, res) => {
 
   if (!email || !password) {
     console.log(" Missing login fields");
-    return res.status(StatusCodes.BAD_REQUEST).json({ error: "Email and password required" });
+    return res
+      .status(StatusCodes.BAD_REQUEST)
+      .json({ error: "Email and password required" });
   }
 
   try {
-    const [rows] = await db.query(
-      "SELECT * FROM users WHERE email = ?",
-      [email]
-    );
+    const [rows] = await db.query("SELECT * FROM users WHERE email = ?", [
+      email,
+    ]);
 
     const user = rows[0];
     // console.log(user);
     if (!user) {
       // console.log(" User not found:", email);
-      return res.status(StatusCodes.UNAUTHORIZED).json({ error: "User not found" });
+      return res
+        .status(StatusCodes.UNAUTHORIZED)
+        .json({ error: "User not found" });
     }
 
     const { userid, username, firstname, lastname } = user;
@@ -94,7 +114,9 @@ const login = async (req, res) => {
 
     if (!isMatch) {
       // console.log(" Invalid password");
-      return res.status(StatusCodes.UNAUTHORIZED).json({ error: "Invalid credentials" });
+      return res
+        .status(StatusCodes.UNAUTHORIZED)
+        .json({ error: "Invalid credentials" });
     }
 
     const token = jwt.sign({ userid, username }, process.env.JWT_SECRET, {
@@ -105,7 +127,7 @@ const login = async (req, res) => {
     return res.status(StatusCodes.OK).json({
       message: "Login successful!",
       token,
-      data:{userid,username,firstname,lastname,email:user.email}
+      data: { userid, username, firstname, lastname, email: user.email },
     });
   } catch (error) {
     console.error("Login error:", error.message);
@@ -116,9 +138,9 @@ const login = async (req, res) => {
 };
 // check
 const check = (req, res) => {
-  const {username,userid} = req.user;
+  const { username, userid } = req.user;
 
-  res.status(StatusCodes.OK).json({message: "Valid user", username,userid});
+  res.status(StatusCodes.OK).json({ message: "Valid user", username, userid });
 };
 
 module.exports = { register, login, check };

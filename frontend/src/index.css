@@ -9,3 +9,8 @@
   --shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
   --font: "Roboto", "Segoe UI", Helvetica, Arial, sans-serif;
 }
+
+body {
+  background-color: #f5f6fa;
+  color: #333;
+}
