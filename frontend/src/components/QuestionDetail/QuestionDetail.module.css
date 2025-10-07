@@ -1,0 +1,38 @@
+.questionContainer {
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.questionCard {
+  width: 75%;
+
+}
+
+.questionTitle {
+  font-size: 1.8rem;
+  color: #222;
+  margin-bottom: 1rem;
+}
+
+.questionDescription {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.questionMeta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  color: #777;
+}
+
+.questionTag {
+  background: #eef3ff;
+  color: #3b6dfc;
+  padding: 0.3rem 0.8rem;
+  border-radius: 8px;
+}
+

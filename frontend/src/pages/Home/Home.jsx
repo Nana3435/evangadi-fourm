@@ -63,7 +63,9 @@ const Home = () => {
           ) : (
             questions?.map((q, i) => (
               <Link
-              onClick={()=>{scrollTo({top:0,behavior:"smooth"})}}
+                onClick={() => {
+                  scrollTo({ top: 0, behavior: "smooth" });
+                }}
                 to={`/answers/${q.questionid}`}
                 key={i}
                 className={styles.questionCard}
