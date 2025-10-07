@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { useNavigate,Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import axios from "../../utils/axiosInstance";
 import Layout from "../../components/Layout/Layout";
 import classes from "./Login.module.css";
-import { toast } from 'react-toastify'
+import { toast } from "react-toastify";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -127,15 +127,10 @@ const Login = () => {
           <aside className={classes.info}>
             <small>About</small>
             <h3>Evangadi Networks Q&amp;A</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quidem
-              voluptate officiis beatae nobis pariatur omnis facere accusamus
-              laboriosam hic,
-            </p>
-            <p>
-              Ullam ipsum, provident minus laudantium esse soluta maiores
-              nostrum nisi sunt perferendis dolorum.
+              Evangadi Networks Q&A is a place to connect, learn, and grow.
+              Whether you're asking questions or sharing answers, you're part of
+              a community that values knowledge and collaboration.
             </p>
             <button className={classes.cta}>HOW IT WORKS</button>
           </aside>
