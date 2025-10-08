@@ -47,6 +47,9 @@ const Home = () => {
           <button className={styles.askBtn} onClick={handleAskQuestion}>
             Ask Question
           </button>
+          <button className={styles.askBtn}>
+            <Link style={{textDecoration:"none",color:"white"}} to={"/ask-ai"}>Ask Gemini</Link>
+          </button>
           <h3>
             Welcome: <span className={styles.username}>{user.username}</span>
           </h3>

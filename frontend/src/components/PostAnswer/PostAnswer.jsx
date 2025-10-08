@@ -27,7 +27,7 @@ const PostAnswer = ({ questionid }) => {
       
     try {
       const res = await axios.post(
-        "answer/post-answer",
+        "/answer/post-answer",
         {
           questionid: questionid,
           answer: answerValue,
