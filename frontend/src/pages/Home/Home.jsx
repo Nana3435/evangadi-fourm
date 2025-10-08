@@ -2,7 +2,7 @@ import Layout from "../../components/Layout/Layout";
 import styles from "./Home.module.css";
 import { FaChevronRight } from "react-icons/fa";
 import { useState, useEffect,useContext } from "react";
-import axios from "../../Utility/axiosConfig";
+import axios from "../../utils/axiosInstance";
 import { Link, useNavigate } from "react-router-dom";
 import { AppContext } from "../../Router";
 

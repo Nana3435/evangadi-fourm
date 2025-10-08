@@ -1,7 +1,7 @@
 import Layout from "../Layout/Layout";
 import classes from "./PostAnswer.module.css";
 import { useRef, useState } from "react";
-import axiosBase from "../../../axiosConfig";
+import axios from "../../utils/axiosInstance";
 import { ClipLoader } from "react-spinners";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -26,7 +26,7 @@ const PostAnswer = ({ questionid }) => {
     const token =localStorage.getItem('token')
       
     try {
-      const res = await axiosBase.post(
+      const res = await axios.post(
         "answer/post-answer",
         {
           questionid: questionid,
