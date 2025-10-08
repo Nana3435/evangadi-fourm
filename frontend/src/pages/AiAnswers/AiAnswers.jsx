@@ -30,7 +30,7 @@ const AiAnswers = ({ userId }) => {
   if (!data || data.length === 0) {
     return (
       <Layout>
-        <p className={styles.empty}>No AI answers yet. <Link to={'./ask-ai'}>Ask something!</Link></p>
+        <p className={styles.empty}>No AI answers yet. <Link className={styles.askSomething} to={'/ask-ai'}>Ask something!</Link></p>
       </Layout>
     );
   }

@@ -46,3 +46,10 @@
   margin-top: 4rem;
   font-size: 1.1rem;
 }
+.askSomething {
+  color: #007bff;
+}
+.askSomething:hover {
+  text-decoration-line: underline;
+  color: blue;
+}
