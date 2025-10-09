@@ -7,6 +7,8 @@ import Answers from "./pages/Answers/Answers";
 import { createContext, useEffect, useState } from "react";
 import axios from "./utils/axiosInstance.js";
 import { MoonLoader } from "react-spinners";
+import AskAI from "./pages/AskAi/AskAi.jsx";
+import AiAnswers from "./pages/AiAnswers/AiAnswers.jsx";
 
 export const AppContext = createContext();
 
@@ -59,6 +61,8 @@ const Router = () => {
           <Route path="/home" element={<Home />} />
           <Route path="/post-question" element={<PostQuestion />} />
           <Route path="/answers/:questionid" element={<Answers />} />
+          <Route path="/ask-ai" element={<AskAI />} />
+          <Route path="/ai-history" element={<AiAnswers />} />
         </Routes>
       )}
     </AppContext>

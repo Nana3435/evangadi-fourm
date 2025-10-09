@@ -2,7 +2,7 @@ import Layout from "../../components/Layout/Layout";
 import styles from "./Home.module.css";
 import { FaChevronRight } from "react-icons/fa";
 import { useState, useEffect,useContext } from "react";
-import axios from "../../Utility/axiosConfig";
+import axios from "../../utils/axiosInstance";
 import { Link, useNavigate } from "react-router-dom";
 import { AppContext } from "../../Router";
 
@@ -46,6 +46,9 @@ const Home = () => {
         <div className={styles.topSection}>
           <button className={styles.askBtn} onClick={handleAskQuestion}>
             Ask Question
+          </button>
+          <button className={styles.askBtn}>
+            <Link style={{textDecoration:"none",color:"white"}} to={"/ask-ai"}>Ask Gemini</Link>
           </button>
           <h3>
             Welcome: <span className={styles.username}>{user.username}</span>
