@@ -69,7 +69,6 @@ const EditQuestionModal = ({ question, onClose, onUpdate }) => {
               value={formData.title}
               onChange={handleChange}
               placeholder="Enter question title"
-              required
             />
           </div>
 
@@ -82,7 +81,6 @@ const EditQuestionModal = ({ question, onClose, onUpdate }) => {
               onChange={handleChange}
               placeholder="Enter question description"
               rows="6"
-              required
             />
           </div>
 
