@@ -49,7 +49,7 @@ const QuestionDetail = ({ questionid, onQuestionUpdate, onQuestionDelete }) => {
           },
         }
       );
-      console.log('🔍 FETCHED QUESTION DATA:', data.data);
+      console.log('FETCHED QUESTION DATA:', data.data);
       setQuestion(data.data);
     } catch (error) {
       console.log('Error fetching question:', error);
