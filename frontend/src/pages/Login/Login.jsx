@@ -7,29 +7,66 @@ import { toast } from "react-toastify";
 
 const Login = () => {
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [formData, setFormData] = useState({
+    email: "",
+    password: ""
+  });
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
 
+  // Destructure form data for cleaner code
+  const { email, password } = formData;
+
+  // Handle input changes
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+  // Store user data in localStorage
+  const storeUserData = (responseData) => {
+    const { token, data: userData } = responseData;
+    // Store token and user data
+    localStorage.setItem("token", token);
+    localStorage.setItem("user", JSON.stringify(userData));
+  };
+
+  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
     if (!email || !password) {
       toast.error("Please fill all the fields");
       return;
     }
+    
+    setLoading(true);
+    
     try {
-      const res = await axios.post("/user/login", { email, password });
-      console.log(res.data);
-      if (res && res.data.token) {
-        localStorage.setItem("token", res.data.token);
-        toast.success("Login Successful");
+      const { data } = await axios.post("/user/login", { email, password });
+      console.log("Login response:", data);
+
+      // Destructure the response
+      const { token, message, error } = data;
+
+      if (token) {
+        // Store user data using destructured values
+        storeUserData(data);
+        toast.success(message || "Login Successful");
         navigate("/home", { replace: true });
       } else {
-        alert(res.data.message || "Login failed");
+        toast.error(message || error || "Login failed");
       }
     } catch (error) {
-      console.log(error);
-      toast.error(error.response?.data?.error || "Server error");
+      // Destructure error response
+      const { response } = error;
+      const errorMessage = response?.data?.error || "Server error";
+      console.log("Login error:", error);
+      toast.error(errorMessage);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -49,28 +86,27 @@ const Login = () => {
             <form onSubmit={handleSubmit}>
               {/* Email */}
               <div className={classes.form_row}>
-                <label className={classes.label}></label>
-
                 <input
                   className={classes.input}
                   type="email"
                   name="email"
                   placeholder="Your Email"
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={handleChange}
+                  disabled={loading}
                 />
               </div>
+              
               {/* Password */}
               <div className={`${classes.form_row} ${classes.input_with_icon}`}>
-                <label className={classes.label}></label>
-
                 <input
                   className={classes.input}
                   type={showPassword ? "text" : "password"}
                   name="password"
                   placeholder="Your Password"
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  onChange={handleChange}
+                  disabled={loading}
                 />
 
                 <button
@@ -78,6 +114,7 @@ const Login = () => {
                   className={classes.icon_btn}
                   onClick={() => setShowPassword(!showPassword)}
                   aria-label="Toggle password visibility"
+                  disabled={loading}
                 >
                   {showPassword ? (
                     <svg
@@ -94,7 +131,6 @@ const Login = () => {
                       <circle cx="12" cy="12" r="3" />
                     </svg>
                   ) : (
-                    /* Eye SVG */
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 24 24"
@@ -105,7 +141,7 @@ const Login = () => {
                       strokeLinejoin="round"
                       className={classes.eye_icon}
                     >
-                      <path d="M17.94 17.94A10.94 10.94 0 0 1 12 20c-7 0-11-8-11-8s4-8 11-8a10.94 10.94 0 0 1 7.94 11.06" />
+                      <path d="M17.94 17.94A10.94 10.94 0 0 1 12 20c-7 0-11-8-11-8s4-8-11-8a10.94 10.94 0 0 1 7.94 11.06" />
                       <path d="M1 1l22 22" />
                     </svg>
                   )}
@@ -113,8 +149,12 @@ const Login = () => {
               </div>
 
               {/* Submit */}
-              <button type="submit" className={classes.btn}>
-                submit
+              <button 
+                type="submit" 
+                className={classes.btn}
+                disabled={loading}
+              >
+                {loading ? "Logging in..." : "Submit"}
               </button>
 
               <div className={classes.alt_link}>
@@ -141,4 +181,3 @@ const Login = () => {
 };
 
 export default Login;
-// const [showPassword, setShowPassword] = useState(false);
