@@ -74,7 +74,7 @@ const PostQuestion = () => {
     } catch (err) {
       if (err.response?.status === 401) {
         toast.error("Unauthorized. Please login again.");
-        navigate("/landing");
+        navigate("/login");
       } else {
         console.error(err);
         toast.error(err.response?.data?.message || "Failed to post question.");
@@ -113,7 +113,6 @@ const PostQuestion = () => {
               id="question_title"
               value={question.title}
               onChange={handleChange}
-              required
             />
 
             <textarea
@@ -122,7 +121,6 @@ const PostQuestion = () => {
               id="question_description"
               value={question.description}
               onChange={handleChange}
-              required
             />
 
             <input
