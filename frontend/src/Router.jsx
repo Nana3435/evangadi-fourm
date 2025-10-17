@@ -39,9 +39,20 @@ const Router = () => {
         setUser(data);
         setLoading(false);
       } catch (error) {
-        console.log(error?.response?.data);
+        const message = error?.response?.data?.error;
+
+        // Handle expired or invalid token
+        if (
+          message === "Token expired" ||
+          message === "Invalid authentication"
+        ) {
+          localStorage.removeItem("token");
+          navigate("/login");
+        } else {
+          console.error("Unexpected error:", message);
+        }
+      } finally {
         setLoading(false);
-        navigate("/login");
       }
     };
 
