@@ -20,45 +20,46 @@ const Router = () => {
 
   
 
-  useEffect(() => {
+useEffect(() => {
     const checkUser = async () => {
       try {
-        const token = localStorage.getItem("token");
+        const token = localStorage.getItem("token"); // get token
 
-        if (!token) {
-          navigate("/login");
-          return;
+        if (!token) { // no token, redirect
+          navigate("/login"); // go to login
+          return; // stop execution
         }
-        setLoading(true);
+        setLoading(true); // start loading
 
-        const { data } = await axios.get("/user/check", {
+        const { data } = await axios.get("/user/check", { // fetch user
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${token}`, // auth header
           },
         });
-        setUser(data);
-        setLoading(false);
-      } catch (error) {
-        const message = error?.response?.data?.error;
+        setUser(data); // set user state
+        setLoading(false); // stop loading
+      } catch (error) { // handle error
+        const message = error?.response?.data?.error; // get error msg
 
         // Handle expired or invalid token
         if (
           message === "Token expired" ||
           message === "Invalid authentication"
         ) {
-          localStorage.removeItem("token");
-          navigate("/login");
+          localStorage.removeItem("token"); // remove token
+          navigate("/login"); // redirect login
         } else {
-          console.error("Unexpected error:", message);
+          console.error("Unexpected error:", message); // log error
         }
       } finally {
-        setLoading(false);
+        setLoading(false); // ensure loading stops
       }
     };
 
-    checkUser();
+    checkUser(); // run check
   }, []);
-  // console.log(user)
+  // console.log(user) // debug
+
 
   return (
     <AppContext value={{ user }}>
