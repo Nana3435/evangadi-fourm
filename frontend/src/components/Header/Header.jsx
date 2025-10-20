@@ -7,16 +7,16 @@ import { useNavigate } from 'react-router';
 
 const Header = () => {
  
-  const {user}=useContext(AppContext)
-  const navigate = useNavigate()
+  const { user } = useContext(AppContext) // get current user from context
+  const navigate = useNavigate() // hook for navigation
 
-
-  const logOut = ()=>{
-    localStorage.removeItem('token');
-    navigate('/login')
+  const logOut = () => { // log out function
+    localStorage.removeItem('token') // remove auth token
+    navigate('/login') // redirect to login
   }
 
-  const token = localStorage.getItem('token')
+  const token = localStorage.getItem('token') // get token from localStorage
+
 
   return (
     <>
