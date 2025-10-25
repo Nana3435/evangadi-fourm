@@ -18,6 +18,11 @@ app.get("/", (req, res) => {
   res.json({ response: "success" });
 });
 
+app.get("/test", (req, res) => {
+  res.json({ response: "working" });
+});
+
+
 app.use("/api/user",userRouter);
 app.use("/api/question", authMiddlewares, questionRouter);
 app.use("/api/answer", authMiddlewares, answerRouter);
