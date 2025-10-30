@@ -63,7 +63,6 @@ const getAllQuestions = async (req, res) => {
                 q.description,
                 q.tag,
                 q.id,
-                q.created_at,
                 u.userid,
                 u.username,
                 u.firstname,
